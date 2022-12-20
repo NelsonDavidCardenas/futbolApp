@@ -1,42 +1,58 @@
-import React from 'react';
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert } from 'react-native';
-import ImageViewer from './components/ImageViewer';
 
+import React, { useState } from 'react';
+import { StyleSheet, Button, View, SafeAreaView, Text} from 'react-native';
+
+
+const Argentina1 = require('./assets/images/messi.png');
+const Argentina2 = require('./assets/images/dibu.png');
+const Argentina3 = require('./assets/images/dimaria.png');
+
+
+const France1 = require('./assets/images/mbappe.png');
+const France2 = require('./assets/images/griezmann.png');
+const France3 = require('./assets/images/lloris.png');
+
+const Croatia1 = require('./assets/images/modric.png');
+const Croatia2 = require('./assets/images/Perisic.png');
+const Croatia3 = require('./assets/images/livakovic.png');
 
 
 const Separator = () => (
   <View style={styles.separator} />
 );
 
-const ArgentinaImage = require('./assets/images/messi.png');
-const FranceImage = require('./assets/images/mbappe.png');
-const CroatiaImage = require('./assets/images/modric.png');
-
+const [showArg, setShowArg] = useState(false)
+const [showFr, setShowFr] = useState(false)
+const [showCr, setShowCr] = useState(false)
+let argentina = [Argentina1,Argentina2,Argentina3]
+let france = [France1,France2,France3]
+let croatia = [Croatia1,Croatia2,Croatia3]
 
 const App = () => (
-
+  
   
   <SafeAreaView style={styles.container}>
-     
+    
       
     <View>
       <Text style={styles.title}>
         Argentina
       </Text>
       <Button
-        title="see player"
-        onPress={ArgentinaImage}
+        title="see players"
+        onPress={()=>setShowArg(!showArg)}
       />
     </View>
+    
     <Separator />
     <View>
       <Text style={styles.title}>
        France
       </Text>
       <Button
-        title="see player"
+        title="see players"
         color="#0000ff"
-        onPress={FranceImage}
+        onPress={()=>setShowFr(!showFr)}
       />
     </View>
     <Separator />
@@ -47,12 +63,56 @@ const App = () => (
       <Button
         title="see team"
         color="#696969"
-        onPress={CroatiaImage}
+        onPress={()=>setShowCr(!showCr)}
       />
     </View>
     <Separator />
+
+    {showArg && (
+      <View style={styles.imageContainer}>
+        {argentina.map((item)=>{
+          return(
+          <Image
+          source={item}
+        style={styles.image}
+      />
+          )})}
+      
+      </View>
+    )}
+
+    {showFr && (
+      <View style={styles.imageContainer}>
+        {france.map((item)=>{
+          return(
+          <Image
+          source={item}
+        style={styles.image}
+      />
+          )})}
+      
+      </View>
+    )}
+
+
+    {showCr && (
+      <View style={styles.imageContainer}>
+        {croatia.map((item)=>{
+          return(
+          <Image
+          source={item}
+        style={styles.image}
+      />
+          )})}
+      
+      </View>
+    )}
+
+
     
   </SafeAreaView>
+
+  
 );
 
 const styles = StyleSheet.create({
@@ -63,6 +123,18 @@ const styles = StyleSheet.create({
     
     
   },
+  imageContainer:{
+    display:'flex',
+    flexDirection:'row',
+    
+  },
+  image:{
+    width:100,
+    height:100,
+    marginRight:'10px'
+
+  },
+
   title: {
     textAlign: 'center',
     marginVertical: 8,
